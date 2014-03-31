@@ -1,0 +1,87 @@
+diff --git a/config.def.h b/config.def.h
+index d300687..559a61f 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -26,6 +26,11 @@ static const Rule rules[] = {
+ 	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+ };
+ 
++const static Ignore ignored[] = {
++  /*class        instance      ontop*/
++  {"stalonetray","stalonetray",False},
++};
++
+ /* layout(s) */
+ static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
+ static const int nmaster      = 1;    /* number of clients in master area */
+diff --git a/dwm.c b/dwm.c
+index 314adf4..4349bf7 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -140,6 +140,12 @@ typedef struct {
+ 	int monitor;
+ } Rule;
+ 
++typedef struct ignore {
++  const char *class;
++  const char *instance;
++  const Bool ontop;
++} Ignore;
++
+ /* function declarations */
+ static void applyrules(Client *c);
+ static Bool applysizehints(Client *c, int *x, int *y, int *w, int *h, Bool interact);
+@@ -165,6 +171,7 @@ static void drawbar(Monitor *m);
+ static void drawbars(void);
+ static void enternotify(XEvent *e);
+ static void expose(XEvent *e);
++static Bool filterignored(Window w);
+ static void focus(Client *c);
+ static void focusin(XEvent *e);
+ static void focusmon(const Arg *arg);
+@@ -777,6 +784,35 @@ expose(XEvent *e) {
+ 		drawbar(m);
+ }
+ 
++Bool 
++filterignored(Window w) {
++  const char *class, *instance;
++  unsigned int i;
++  const Ignore *o;
++  XClassHint ch = { NULL, NULL };
++  
++  XGetClassHint(dpy, w, &ch);
++  class    = ch.res_class ? ch.res_class : broken;
++  instance = ch.res_name  ? ch.res_name  : broken;
++
++  for(i = 0; i < LENGTH(ignored); i++) {
++    o = &ignored[i];
++    fflush(stdout);
++    if(((!o->class || strstr(class, o->class))
++	&& (!o->instance || strstr(instance, o->instance))))
++      {
++	XMapWindow(dpy,w);
++	if( o->ontop )
++	  XRaiseWindow(dpy,w);
++	else
++	  XLowerWindow(dpy,w);
++	return True;	
++      }
++  }
++
++  return False;
++}
++
+ void
+ focus(Client *c) {
+ 	if(!c || !ISVISIBLE(c))
+@@ -1009,6 +1045,9 @@ manage(Window w, XWindowAttributes *wa) {
+ 	Window trans = None;
+ 	XWindowChanges wc;
+ 
++	if( filterignored(w) )
++	  return;
++
+ 	if(!(c = calloc(1, sizeof(Client))))
+ 		die("fatal: could not malloc() %u bytes\n", sizeof(Client));
+ 	c->win = w;
