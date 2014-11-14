@@ -14,12 +14,9 @@ static const char selfgcolor[]      = "#F5F5F5";
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
-static const Bool systraypinningfailfirst = True;   /* True: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const Bool showsystray       = True;     /* False means no systray */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
-static const unsigned bottommargin = 14;    /*Bottom margin in pixel*/
+static const unsigned bottommargin = 16;    /*Bottom margin in pixel*/
 /* tagging */
 //static const char *tags[] = { "", "", "", "" };
 static const char *tags[] = {"1","2","3","4","5"};
@@ -30,14 +27,17 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-	{ "Deja-dup", NULL,       "Back Up",  1<<4,         True,        -1 },
+	/*{ "Deja-dup", NULL,       "Back Up",  1<<4,         True,        -1 },*/
+	{ "Java",     "java",     "Eclipse",  0,            True,        -1 },
+	{ NULL,     NULL,     "F1s#n3t",  0,            True,        -1 },
+	
 };
 
-/* const static Ignore ignored[] = { */
-/*   /\*class        instance      ontop*\/ */
-/*   {"stalonetray","stalonetray",False}, */
-/*   {"Nautilus","desktop_window",False}, */
-/* }; */
+const static Ignore ignored[] = {
+  /*class        instance      ontop*/
+  {"stalonetray","stalonetray",False},
+  {"Nautilus","desktop_window",False},
+};
 
 /* layout(s) */
 static const float mfact      = 0.50; /* factor of master area size [0.05..0.95] */
@@ -72,27 +72,27 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 /*static const char *musiccmd[] = { "st","-e","ncmpcpp"};*/
-/*static const char *termcmd[]  = { "gnome-terminal","--hide-menubar", NULL };*/
-static const char *termcmd[] = { "st", NULL };
+static const char *termcmd[]  = { "gnome-terminal","--hide-menubar", NULL };
+/* static const char *termcmd[] = { "st", NULL }; */
 static const char *browsercmd[] = { "chromium", NULL};
 static const char *filemgcmd[] = { "nautilus" , NULL};
-static const char *filemgcmd2[] = { "st" ,"-e" , "ranger", NULL};
+//static const char *filemgcmd2[] = { "st" ,"-e" , "ranger", NULL};
 static const char *lockandsuspendcmd[] = {"locksusp",NULL};
 static const char *lockscreencmd[] ={"slock",NULL}; 
 static const char *mpcprevcmd[] = {"mpc","prev",NULL};
 static const char *mpctogglecmd[] = {"mpc","toggle",NULL};
 static const char *mpcnextcmd[] = {"mpc","next",NULL};
 static const char *mpcstopcmd[] = {"mpc","stop",NULL};
-static const char *volmutecmd[] = {"amixer","set","Master","Playback","toggle",NULL};
-static const char *voldowncmd[] = {"amixer", "set", "Master","5%-",NULL};
-static const char *volupcmd[] = {"amixer", "set", "Master","5%+",NULL};
-static const char *eclipsecmd[] = {"eclipse", "-nosplash",NULL};
+static const char *volmutecmd[] = {"amixer","set","Speaker","Playback","toggle",NULL};
+static const char *voldowncmd[] = {"amixer", "set", "Speaker","5%-",NULL};
+static const char *volupcmd[] = {"amixer", "set", "Speaker","5%+",NULL};
+//static const char *eclipsecmd[] = {"eclipse", "-nosplash",NULL};
 static Key keys[] = {
 	/* modifier                     key        function        argument */
         { MODKEY,                       XK_F1,     spawn,          {.v = browsercmd} },
         { MODKEY,                       XK_F2,     spawn,          {.v = filemgcmd} },
-        { MODKEY,                       XK_F3,     spawn,          {.v = filemgcmd2} },
-        { MODKEY,                       XK_F4,     spawn,          {.v = eclipsecmd} },
+	//{ MODKEY,                       XK_F3,     spawn,          {.v = filemgcmd2} },
+        //{ MODKEY,                       XK_F4,     spawn,          {.v = eclipsecmd} },
         { MODKEY|ShiftMask,             XK_F3,     spawn,          {.v = lockscreencmd} },
         { MODKEY|ShiftMask,             XK_F4,     spawn,          {.v = lockandsuspendcmd} },
         { MODKEY,                       XK_F5,     spawn,          {.v = mpcprevcmd} },
