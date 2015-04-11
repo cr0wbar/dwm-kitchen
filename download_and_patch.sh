@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PATCHES=(dwm-6.1-systray.diff dwm-6.1-pertag.diff dwm-6.1-push.diff  dwm-6.0-bstack.diff dwm-6.1-bottommargin.diff)
+PATCHES=(dwm-6.1-ignorewindows.diff dwm-6.1-push.diff  dwm-6.0-bstack.diff dwm-6.1-bottommargin.diff)
 PATCHES_DIR="../dwm-patches"
 CONFIG_DIR="../dwm-config"
 
