@@ -1,10 +1,11 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = 
-"-*-stlarch-medium-*-*-*-10-*-*-*-*-*-*-*" 
-"," 
-"-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
+static const char *fonts[] = { 
+  "Terminus:size=8",
+  "Stlarch:size=10",
+};
+static const char dmenufont[] = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
 static const char normbordercolor[] = "#AAAAAA";
 static const char normbgcolor[]     = "#000F25";
 static const char normfgcolor[]     = "#FFFFFF";
@@ -18,8 +19,7 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 static const unsigned bottommargin = 16;    /*Bottom margin in pixel*/
 /* tagging */
-//static const char *tags[] = { "", "", "", "" };
-static const char *tags[] = {"1","2","3","4","5"};
+static const char *tags[] = {"1","2","3","4","5","6","7","8","9"};
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -40,7 +40,7 @@ const static Ignore ignored[] = {
 };
 
 /* layout(s) */
-static const float mfact      = 0.50; /* factor of master area size [0.05..0.95] */
+static const float mfact      = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
@@ -70,7 +70,7 @@ static const Layout layouts[] = {
 #include "scrolllayout.c"
 #include "push.c"
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 /*static const char *musiccmd[] = { "st","-e","ncmpcpp"};*/
 static const char *termcmd[]  = { "gnome-terminal","--hide-menubar", NULL };
 /* static const char *termcmd[] = { "st", NULL }; */
@@ -132,10 +132,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
-	/*TAGKEYS(                        XK_6,                      5)
+	TAGKEYS(                        XK_6,                      5)
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)*/
+	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
