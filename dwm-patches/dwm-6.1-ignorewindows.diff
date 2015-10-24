@@ -1,8 +1,8 @@
 diff --git a/config.def.h b/config.def.h
-index d300687..559a61f 100644
+index 3fde3cf..b34383d 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -26,6 +26,11 @@ static const Rule rules[] = {
+@@ -29,6 +29,11 @@ static const Rule rules[] = {
  	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
  };
  
@@ -15,10 +15,10 @@ index d300687..559a61f 100644
  static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
  static const int nmaster      = 1;    /* number of clients in master area */
 diff --git a/dwm.c b/dwm.c
-index 314adf4..4349bf7 100644
+index 96b43f7..48f320f 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -140,6 +140,12 @@ typedef struct {
+@@ -141,6 +141,12 @@ typedef struct {
  	int monitor;
  } Rule;
  
@@ -31,7 +31,7 @@ index 314adf4..4349bf7 100644
  /* function declarations */
  static void applyrules(Client *c);
  static Bool applysizehints(Client *c, int *x, int *y, int *w, int *h, Bool interact);
-@@ -165,6 +171,7 @@ static void drawbar(Monitor *m);
+@@ -166,6 +172,7 @@ static void drawbar(Monitor *m);
  static void drawbars(void);
  static void enternotify(XEvent *e);
  static void expose(XEvent *e);
@@ -39,7 +39,7 @@ index 314adf4..4349bf7 100644
  static void focus(Client *c);
  static void focusin(XEvent *e);
  static void focusmon(const Arg *arg);
-@@ -777,6 +784,35 @@ expose(XEvent *e) {
+@@ -776,6 +783,35 @@ expose(XEvent *e) {
  		drawbar(m);
  }
  
@@ -75,13 +75,13 @@ index 314adf4..4349bf7 100644
  void
  focus(Client *c) {
  	if(!c || !ISVISIBLE(c))
-@@ -1009,6 +1045,9 @@ manage(Window w, XWindowAttributes *wa) {
+@@ -1008,6 +1044,9 @@ manage(Window w, XWindowAttributes *wa) {
  	Window trans = None;
  	XWindowChanges wc;
  
 +	if( filterignored(w) )
 +	  return;
-+
- 	if(!(c = calloc(1, sizeof(Client))))
- 		die("fatal: could not malloc() %u bytes\n", sizeof(Client));
++		
+ 	c = ecalloc(1, sizeof(Client));
  	c->win = w;
+ 	updatetitle(c);
