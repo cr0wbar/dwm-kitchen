@@ -5,7 +5,7 @@ static const char *fonts[] = {
   "Terminus:size=8",
   "Stlarch:size=10",
 };
-static const char dmenufont[] = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
+static const char dmenufont[] = "Terminus:size=8";
 static const char normbordercolor[] = "#AAAAAA";
 static const char normbgcolor[]     = "#000F25";
 static const char normfgcolor[]     = "#FFFFFF";
@@ -28,14 +28,12 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
 	/*{ "Deja-dup", NULL,       "Back Up",  1<<4,         True,        -1 },*/
-	{ "Java",     "java",     "Eclipse",  0,            True,        -1 },
-	{ NULL,     NULL,     "F1s#n3t",  0,            True,        -1 },
 	
 };
 
 const static Ignore ignored[] = {
   /*class        instance      ontop*/
-  {"stalonetray","stalonetray",False},
+  {"stalonetray","stalonetray",True},
   {"Nautilus","desktop_window",False},
 };
 
@@ -72,8 +70,10 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 /*static const char *musiccmd[] = { "st","-e","ncmpcpp"};*/
-static const char *termcmd[]  = { "gnome-terminal","--hide-menubar", NULL };
-/* static const char *termcmd[] = { "st", NULL }; */
+//static const char *termcmd[]  = { "gnome-terminal","--hide-menubar", "-x", "tmux", "attach", "-t", "crowbar", NULL };
+static const char *termcmd[]  = { "gnome-terminal","--hide-menubar",  NULL };
+//static const char *termcmd[] = {"st","-e","tmux","attach",NULL};
+/* static const char *termcmd[] = { "st", "-e", "tmux","attach",NULL}; */
 static const char *browsercmd[] = { "chromium", NULL};
 static const char *filemgcmd[] = { "nautilus" , NULL};
 //static const char *filemgcmd2[] = { "st" ,"-e" , "ranger", NULL};
