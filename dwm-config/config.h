@@ -2,15 +2,15 @@
 
 /* appearance */
 static const char *fonts[] = { 
-  "Terminus:size=8",
-  "Stlarch:size=10",
+  "xos4 Terminus:size=8",
+  "Misc Stlarch:size=10",
 };
-static const char dmenufont[] = "Terminus:size=8";
-static const char normbordercolor[] = "#AAAAAA";
-static const char normbgcolor[]     = "#000F25";
+static const char dmenufont[] = "xos4 Terminus:size=8";
+static const char normbordercolor[] = "#DBDEE0";
+static const char normbgcolor[]     = "#2D3743";
 static const char normfgcolor[]     = "#FFFFFF";
-static const char selbordercolor[]  = "#1A62CA";
-static const char selbgcolor[]      = "#1A62CA";
+static const char selbordercolor[]  = "#F5AB35";
+static const char selbgcolor[]      = "#178984";
 static const char selfgcolor[]      = "#F5F5F5";
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -18,6 +18,11 @@ static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows sel
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 static const unsigned bottommargin = 16;    /*Bottom margin in pixel*/
+static const char *colors[][3]      = {
+	/*               fg         bg         border   */
+	[SchemeNorm] = { normfgcolor, normbgcolor,  normbordercolor  },
+	[SchemeSel]  = { selfgcolor, selbgcolor, selbordercolor },
+};
 /* tagging */
 static const char *tags[] = {"1","2","3","4","5","6","7","8","9"};
 static const Rule rules[] = {
@@ -42,7 +47,6 @@ static const float mfact      = 0.5; /* factor of master area size [0.05..0.95] 
 static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
-#include "bstack.c"
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
@@ -72,9 +76,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgco
 /*static const char *musiccmd[] = { "st","-e","ncmpcpp"};*/
 //static const char *termcmd[]  = { "gnome-terminal","--hide-menubar", "-x", "tmux", "attach", "-t", "crowbar", NULL };
 static const char *termcmd[]  = { "gnome-terminal","--hide-menubar",  NULL };
-//static const char *termcmd[] = {"st","-e","tmux","attach",NULL};
-/* static const char *termcmd[] = { "st", "-e", "tmux","attach",NULL}; */
-static const char *browsercmd[] = { "chromium", NULL};
+//static const char *termcmd[] = {"st","-e","dvtm","-M",NULL};
+static const char *browsercmd[] = { "firefox", NULL};
 static const char *filemgcmd[] = { "nautilus" , NULL};
 //static const char *filemgcmd2[] = { "st" ,"-e" , "ranger", NULL};
 static const char *lockandsuspendcmd[] = {"locksusp",NULL};
